@@ -1,0 +1,16 @@
+{
+	"name": "YYSX Display and Input Provider",
+	"version": "0.0.1",
+	"libraryName": "unitydisplayprovider",
+
+	"displays": [
+		{
+			"id": "YYSX Display"
+		}
+	],
+	"inputs": [
+		{
+			"id": "YYSX Input"
+		}
+	]
+}
