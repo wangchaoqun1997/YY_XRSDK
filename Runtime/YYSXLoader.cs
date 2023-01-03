@@ -56,8 +56,8 @@ namespace YYSX
 #endif
             return settings;
         }
-
-        public static YYSXLoader instanct;
+        XRDisplaySubsystem dispInst;
+        XRInputSubsystem trackingInst;
 
 #region XRLoader API Implementation
 
@@ -65,7 +65,6 @@ namespace YYSX
         /// <returns>True if successful, false otherwise</returns>
         public override bool Initialize()
         {
-            instanct = this;
             YYSXSettings settings = GetSettings();
             if (settings != null)
             {
@@ -76,27 +75,8 @@ namespace YYSX
             CreateSubsystem<XRDisplaySubsystemDescriptor, XRDisplaySubsystem>(s_DisplaySubsystemDescriptors, "YYSX Display");
             CreateSubsystem<XRInputSubsystemDescriptor, XRInputSubsystem>(s_InputSubsystemDescriptors, "YYSX Input");
 
+
             return true;
-
-            //List<XRDisplaySubsystemDescriptor> displays = new List<XRDisplaySubsystemDescriptor>();
-
-            //SubsystemManager.GetSubsystemDescriptors(displays);
-            //Debug.Log("wangcq327 --- Number of display providers found: " + displays.Count);
-
-            //foreach (var d in displays)
-            //{
-            //    //if (d.id.Contains(match)) {
-            //    Debug.Log("wangcq327 ---Creating display " + d.id);
-            //    XRDisplaySubsystem dispInst = d.Create();
-
-            //    if (dispInst != null)
-            //    {
-            //        Debug.Log("wangcq327 ---Starting display " + d.id);
-            //        dispInst.Start();
-            //        dispInst.singlePassRenderingDisabled = true;
-            //        Debug.Log("wangcq327 --- " + dispInst.supportedTextureLayouts);
-            //    }
-            //}
 
         }
 
@@ -104,16 +84,21 @@ namespace YYSX
         /// <returns>True if successful, false otherwise</returns>
         public override bool Start()
         {
-            if (Application.platform == RuntimePlatform.Android){
+            if (Application.platform == RuntimePlatform.Android)
+            {
                 AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
                 AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
                 NativeAPI_SetActivity(activity.GetRawObject());
             }
-
-
-
+           
             StartSubsystem<XRDisplaySubsystem>();
             StartSubsystem<XRInputSubsystem>();
+
+            XRDisplaySubsystem display = GetLoadedSubsystem<XRDisplaySubsystem>();
+            if (display != null)
+            {
+                display.singlePassRenderingDisabled = true;
+            }
 
             return true;
         }

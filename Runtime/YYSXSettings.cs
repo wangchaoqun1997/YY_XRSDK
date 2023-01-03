@@ -11,42 +11,28 @@ namespace YYSX
     [System.Serializable]
     public class YYSXSettings : ScriptableObject
     {
-        #if !UNITY_EDITOR
+#if !UNITY_EDITOR
         /// <summary>Static instance that will hold the runtime asset instance we created in our build process.</summary>
         /// <see cref="YYSXBuildProcessor"/>
         public static YYSXSettings s_RuntimeInstance = null;
-        #endif
+#endif
 
-        /// <summary>Requirement settings enumeration</summary>
-        public enum Requirement
+        public enum StereoRenderingModeAndroid
         {
-            /// <summary>Required</summary>
-            Required,
-            /// <summary>Optional</summary>
-            Optional,
-            /// <summary>None</summary>
-            None
+            MultiPass,
+            Multiview
         }
 
         [SerializeField, Tooltip("Changes item requirement.")]
-        Requirement m_RequiresItem;
+        StereoRenderingModeAndroid m_StereoRenderingModeAndroid;
 
         /// <summary>Whether or not the item is required.</summary>
-        public Requirement requiresItem
+        public StereoRenderingModeAndroid stereoRenderingModeAndroid
         {
-            get { return m_RequiresItem; }
-            set { m_RequiresItem = value; }
+            get { return m_StereoRenderingModeAndroid; }
+            set { m_StereoRenderingModeAndroid = value; }
         }
 
-        [SerializeField, Tooltip("Some toggle for runtime.")]
-        bool m_RuntimeToggle = true;
-
-        /// <summary>Where we toggled?</summary>
-        public bool runtimeToggle
-        {
-            get { return m_RuntimeToggle; }
-            set { m_RuntimeToggle = value; }
-        }
 
         void Awake()
         {
