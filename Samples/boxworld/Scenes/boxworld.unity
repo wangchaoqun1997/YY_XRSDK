@@ -332,6 +332,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CubeArray
       objectReference: {fileID: 0}
+    - target: {fileID: 2500467818088107025, guid: bc7d27ecb974d224890f1ba61f9c0dbd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc7d27ecb974d224890f1ba61f9c0dbd, type: 3}
 --- !u!1 &1449626287
@@ -505,7 +510,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -518,8 +523,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
-  far clip plane: 1000
+  near clip plane: 0.0508
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
