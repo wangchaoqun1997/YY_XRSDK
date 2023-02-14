@@ -28,9 +28,6 @@ namespace YYSX
 #endif
     public class YYSXLoader : XRLoaderHelper
     {
-        [DllImport("unitydisplayprovider")]
-        public static extern void NativeAPI_SetActivity(IntPtr native);
-
         static List<XRInputSubsystemDescriptor> s_InputSubsystemDescriptors = new List<XRInputSubsystemDescriptor>();
         static List<XRDisplaySubsystemDescriptor> s_DisplaySubsystemDescriptors = new List<XRDisplaySubsystemDescriptor>();
         
@@ -84,12 +81,12 @@ namespace YYSX
         /// <returns>True if successful, false otherwise</returns>
         public override bool Start()
         {
-            if (Application.platform == RuntimePlatform.Android)
-            {
-                AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-                AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-                NativeAPI_SetActivity(activity.GetRawObject());
-            }
+            //if (Application.platform == RuntimePlatform.Android)
+            //{
+            //    AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            //    AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            //    NativeAPI_SetActivity(activity.GetRawObject());
+            //}
            
             StartSubsystem<XRDisplaySubsystem>();
             StartSubsystem<XRInputSubsystem>();
