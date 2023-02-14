@@ -1,7 +1,7 @@
 {
   "name": "com.unity.xr.yysx",
   "displayName": "YYSX",
-  "version": "0.0.1-preview",
+  "version": "0.0.2",
   "unity": "2020.3",
   "description": "Provides display and input support for yysx devices.",
   "keywords": [
