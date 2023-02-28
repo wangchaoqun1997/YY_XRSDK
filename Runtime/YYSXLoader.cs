@@ -30,7 +30,8 @@ namespace YYSX
     {
         static List<XRInputSubsystemDescriptor> s_InputSubsystemDescriptors = new List<XRInputSubsystemDescriptor>();
         static List<XRDisplaySubsystemDescriptor> s_DisplaySubsystemDescriptors = new List<XRDisplaySubsystemDescriptor>();
-        
+        YYSXSettings settings;
+
         /// <summary>Return the currently active Input Subsystem intance, if any.</summary>
         public XRInputSubsystem inputSubsystem
         {
@@ -43,7 +44,6 @@ namespace YYSX
 
         YYSXSettings GetSettings()
         {
-            YYSXSettings settings = null;
             // When running in the Unity Editor, we have to load user's customization of configuration data directly from
             // EditorBuildSettings. At runtime, we need to grab it from the static instance field instead.
 #if UNITY_EDITOR
@@ -62,10 +62,11 @@ namespace YYSX
         /// <returns>True if successful, false otherwise</returns>
         public override bool Initialize()
         {
-            YYSXSettings settings = GetSettings();
-            if (settings != null)
+            settings = GetSettings();
+            if (settings == null)
             {
                 // TODO: Pass settings off to plugin prior to subsystem init.
+                Debug.Log("YYSX Initialize: settings == null ERROR!!");
             }
             LayoutMatcherRegister();
 
@@ -92,9 +93,10 @@ namespace YYSX
             StartSubsystem<XRInputSubsystem>();
 
             XRDisplaySubsystem display = GetLoadedSubsystem<XRDisplaySubsystem>();
-            if (display != null)
+            if (display != null && settings != null)
             {
-                display.singlePassRenderingDisabled = true;
+                display.singlePassRenderingDisabled = (settings.stereoRenderingModeAndroid == YYSXSettings.StereoRenderingModeAndroid.MultiPass) ? true : false;
+                Debug.Log("YYSX Use RenderingMode:"+ settings.stereoRenderingModeAndroid);
             }
 
             return true;
