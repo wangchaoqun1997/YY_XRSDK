@@ -8,6 +8,7 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 using System;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -69,6 +70,8 @@ namespace YYSX
                 Debug.Log("YYSX Initialize: settings == null ERROR!!");
             }
             LayoutMatcherRegister();
+            InputSystem.RegisterLayout<HandLeftLayout>(matches: new InputDeviceMatcher().WithProduct("YYSX LHand"));
+            InputSystem.RegisterLayout<HandRightLayout>(matches: new InputDeviceMatcher().WithProduct("YYSX RHand"));
 
             CreateSubsystem<XRDisplaySubsystemDescriptor, XRDisplaySubsystem>(s_DisplaySubsystemDescriptors, "YYSX Display");
             CreateSubsystem<XRInputSubsystemDescriptor, XRInputSubsystem>(s_InputSubsystemDescriptors, "YYSX Input");
@@ -137,8 +140,33 @@ namespace YYSX
                   .WithProduct("YYSX HMD")
                   );
 
+  //          UnityEngine.InputSystem.InputSystem.RegisterLayoutMatcher<HandLayout>(
+  //new InputDeviceMatcher()
+  //    //.WithInterface(XRUtilities.InterfaceMatchAnyVersion)
+  //    .WithProduct("YYSX Hand")
+  //    );
+
         }
 
         #endregion
+
+#if UNITY_EDITOR
+        [InitializeOnLoad]
+#endif
+        static class InputLayoutLoader
+        {
+            static InputLayoutLoader()
+            {
+                RegisterInputLayouts();
+            }
+
+            public static void RegisterInputLayouts()
+            {
+                InputSystem.RegisterLayout<HandLeftLayout>(matches: new InputDeviceMatcher().WithProduct("YYSX LHand"));
+                InputSystem.RegisterLayout<HandRightLayout>(matches: new InputDeviceMatcher().WithProduct("YYSX RHand"));
+            }
+        }
+
+
     }
 }
