@@ -1,6 +1,6 @@
 {
 	"name": "YYSX Display and Input Provider",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"libraryName": "yyss_unityxrprovider",
 
 	"displays": [

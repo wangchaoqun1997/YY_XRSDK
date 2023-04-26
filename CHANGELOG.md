@@ -1,3 +1,7 @@
+## [0.0.4] - 2023-4-25
+### Added
+- UpdateDocuments
+
 ## [0.0.3] - 2023-4-24
 ### Added
 - Supprot Multithreaded Rendering
